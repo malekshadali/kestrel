@@ -1,0 +1,23 @@
+# ==========================================
+# 1. Rust / Cargo Outputs (Absolute Must)
+# ==========================================
+# This ignores the massive /target directory where Rust compiles your binaries
+/target/
+
+# ==========================================
+# 2. Operating System Files
+# ==========================================
+.DS_Store
+Thumbs.db
+*.tmp
+
+# ==========================================
+# 3. Personal Notes & Learning Markdown files
+# ==========================================
+# OPTION A: Ignore ALL markdown files in the project...
+*.md
+
+# ...BUT keep your main portfolio README.md file so GitHub can display it!
+!README.md
+
+/notes/
