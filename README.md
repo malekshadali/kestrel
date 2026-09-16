@@ -4,6 +4,9 @@ A sleek, fast, and lightweight systems utility written in Rust. **Kestrel** comb
 
 This project was built to explore Rust systems programming, terminal formatting, cross-platform terminal control, and serialization pipelines.
 
+Kestrel is now expanding into a fully custom terminal emulator — 
+rendering text pixel by pixel with no GPU or GUI framework.
+
 ---
 
 ## 🚀 Features
@@ -22,7 +25,9 @@ This project was built to explore Rust systems programming, terminal formatting,
 *   [**serde** & **serde_json**](https://crates.io/crates/serde) - High-performance, zero-copy serialization engine.
 *   [**sysinfo**](https://crates.io/crates/sysinfo) - Cross-platform hardware diagnostics and resource polling.
 *   [**colored**](https://crates.io/crates/colored) & [**crossterm**](https://crates.io/crates/crossterm) - Rich terminal colors, text formatting, and cross-platform terminal screen manipulation.
-
+*   [**winit**](https://crates.io/crates/winit) - Cross-platform window creation.
+*   [**softbuffer**](https://crates.io/crates/softbuffer) - CPU-side pixel buffer rendering.
+*   [**fontdue**](https://crates.io/crates/fontdue) - Pure Rust font rasterizer.
 ---
 
 ## 📦 Installation & Getting Started
@@ -54,7 +59,10 @@ Make sure you have the Rust compiler and Cargo installed on your system.
 ## 📖 Roadmap & Future Extensions
 
 Kestrel is designed with an extensible, modular architecture. Upcoming features include:
-*   [ ] **Custom REPL (Interactive Shell)**: Transitioning from a one-shot utility into an interactive terminal interface using `rustyline`.
-*   [ ] **Sub-process Piping**: Executing external commands (like `git status`) directly within a custom environment loop.
-*   [ ] **Hidden File Filtering**: Toggle switches to clean up terminal displays by hiding dotfiles.
-*   [ ] **Uptime & Network Diagnostics**: Expanded dashboard widgets for complete system metrics.
+- [x] Custom window renderer (winit + softbuffer)
+- [x] Software font rasterization (fontdue, no GPU)
+- [x] Text rendering with baseline correction
+- [ ] Keyboard input + blinking cursor
+- [ ] Line buffer + scrollback
+- [ ] Shell backend (spawn process, pipe stdout)
+- [ ] Full interactive terminal emulator
