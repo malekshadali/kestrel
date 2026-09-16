@@ -1,6 +1,5 @@
 use chrono::{DateTime, Utc};
 use clap::Parser; // Renamed
-use colored::Colorize;
 use serde::Serialize;
 use std::{
     fs,
@@ -14,6 +13,9 @@ use tabled::{
         object::{Columns, Rows},
     },
 }; // Renamed
+
+mod sys_monitor;
+mod window;
 
 #[derive(Debug, Display, Serialize)]
 enum EntryType {
@@ -40,25 +42,31 @@ struct CLI {
     #[arg(short, long)]
     json: bool,
 }
-fn main() {
-    let cli = CLI::parse();
-    let path = cli.path.unwrap_or(PathBuf::from("."));
 
-    if let Ok(does_exist) = fs::exists(&path) {
-        if does_exist {
-            if cli.json {
-                let get_files = get_files(&path);
-                println!("{}", serde_json::to_string_pretty(&get_files).unwrap_or("cannot parse text".to_string()))
-            } else {
-                print_table(path);
-            }
-        } else {
-            println!("{}", "Path does not exist".red().bold());
-        }
-    } else {
-        println!("{}", "error reading directory".red().bold());
-    }
+fn main() {
+    window::initialize_window::run();
 }
+
+// fn main() {
+//     let cli = CLI::parse();
+//     let path = cli.path.unwrap_or(PathBuf::from("."));
+
+//     if let Ok(does_exist) = fs::exists(&path) {
+//         if does_exist {
+//             if cli.json {
+//                 let get_files = get_files(&path);
+//                 println!("{}", serde_json::to_string_pretty(&get_files).unwrap_or("cannot parse text".to_string()))
+//             } else {
+//                 print_table(path);
+//                 sys_monitor::sysinfo();
+//             }
+//         } else {
+//             println!("{}", "Path does not exist".red().bold());
+//         }
+//     } else {
+//         println!("{}", "error reading directory".red().bold());
+//     }
+// }
 
 fn get_files(path: &Path) -> Vec<FileEntry> {
     let mut data = Vec::default();
@@ -98,8 +106,7 @@ fn map_data(file: fs::DirEntry, data: &mut Vec<FileEntry>) {
 fn print_table(path: PathBuf) {
     let get_files = get_files(&path);
     let mut table = Table::new(get_files);
-    // table.with(TabledStyle::rounded()); /*TODO*/
-    table.with(TabledStyle::modern_rounded());
+    table.with(TabledStyle::extended());
     table.modify(Columns::first(), Color::FG_BRIGHT_CYAN);
     table.modify(Columns::one(1), Color::FG_BRIGHT_WHITE);
     table.modify(Columns::one(2), Color::FG_BRIGHT_MAGENTA);
