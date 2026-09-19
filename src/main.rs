@@ -14,8 +14,8 @@ use tabled::{
     },
 }; // Renamed
 
-mod sys_monitor;
 mod window;
+pub mod shell;
 
 #[derive(Debug, Display, Serialize)]
 enum EntryType {
